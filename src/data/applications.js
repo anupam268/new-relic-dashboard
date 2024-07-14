@@ -6,7 +6,8 @@ const applications = [
     throughput: '7 rpm',
     responseTime: '0.26 s',
     violations: 2,
-    hosts: 1,
+    hosts: 5,
+    hostsAlerting: 1,
     status: 'error'
   },
   {
@@ -17,6 +18,7 @@ const applications = [
     responseTime: '0.17 s',
     violations: 1,
     hosts: 4,
+    hostsAlerting: 2,
     status: 'error'
   },
   {
@@ -27,6 +29,7 @@ const applications = [
     responseTime: '14.86 s',
     violations: 1,
     hosts: 4,
+    hostsAlerting: 1,
     status: 'error'
   },
   {
@@ -37,6 +40,7 @@ const applications = [
     responseTime: '0.01 s',
     violations: 1,
     hosts: 4,
+    hostsAlerting: 0,
     status: 'warning'
   },
   {
@@ -47,6 +51,7 @@ const applications = [
     responseTime: '0.0 s',
     violations: 1,
     hosts: 2,
+    hostsAlerting: 0,
     status: 'success'
   },
   {
@@ -57,6 +62,7 @@ const applications = [
     responseTime: '0.01 s',
     violations: 1,
     hosts: 2,
+    hostsAlerting: 0,
     status: 'success'
   },
   {
@@ -67,8 +73,10 @@ const applications = [
     responseTime: '0.01 s',
     violations: 0,
     hosts: 581,
+    hostsAlerting: 0,
     status: 'success'
   }
 ];
+
 
 export default applications;

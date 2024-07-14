@@ -1,8 +1,7 @@
 import React from 'react';
-import { Container, Typography, Grid, AppBar, Toolbar, Switch, FormControlLabel, Box } from '@mui/material';
-import ApplicationCard from './components/ApplicationCard';
-import applications from './data/applications';
+import { Container, Typography, AppBar, Toolbar, Box } from '@mui/material';
 import FilterBar from './components/FilterBar';
+import Dashboard from './Dashboard';
 
 const App = () => {
   return (
@@ -20,13 +19,7 @@ const App = () => {
       <Typography variant="h5" component="h2" gutterBottom>
         Applications and Related Hosts
       </Typography>
-      <Grid container spacing={3}>
-        {applications.map((app, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <ApplicationCard app={app} />
-          </Grid>
-        ))}
-      </Grid>
+      <Dashboard />
     </Container>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box, Paper, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import CircleIcon from '@mui/icons-material/Circle';
 
 const statusColors = {
   error: '#f44336',
@@ -26,7 +27,7 @@ const AppNameBox = styled(Box)(({ status }) => ({
 }));
 
 const MetricsBox = styled(Box)({
-  padding: '16px',
+  padding: '8px 16px',
   borderRadius: '4px',
   display: 'flex',
   flexDirection: 'column',
@@ -40,8 +41,17 @@ const MetricsRow = styled(Box)({
   flexWrap: 'nowrap',
 });
 
+const HostVisualization = styled(Box)({
+  display: 'flex',
+  gap: '4px',
+  marginTop: '8px',
+});
+
 const ApplicationCard = ({ app }) => {
   const statusClass = app.status;
+
+  const hosts = new Array(app.hosts).fill({ status: 'success' });
+  hosts.fill({ status: 'error' }, 0, app.hostsAlerting);
 
   return (
     <Paper elevation={3}>
@@ -50,7 +60,10 @@ const ApplicationCard = ({ app }) => {
           position: 'relative',
           borderTop: `5px solid ${statusColors[statusClass]}`,
           transition: 'transform 0.2s',
-          height: '270px', // Adjusted height for the card
+          height: '230px', // Adjusted height for the card
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
           '&:hover': {
             transform: 'scale(1.02)',
           },
@@ -58,12 +71,17 @@ const ApplicationCard = ({ app }) => {
       >
         <Box>
           <AppNameBox status={statusClass}>
-            <Typography variant="h6" component="h2" noWrap sx={{ fontSize: '0.9rem' }}>
+            <Typography variant="h6" component="h2" noWrap sx={{ fontSize: '0.8rem' }}>
               {app.name}
             </Typography>
-            <Typography variant="body2" sx={{ fontSize: '0.7rem' }}>
-              Violations: {app.violations}
-            </Typography>
+            <Box display="flex" justifyContent="space-between">
+              <Typography variant="body2" sx={{ fontSize: '0.7rem' }}>
+                Violations: {app.violations}
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: '0.7rem' }}>
+                {app.hostsAlerting} of {app.hosts} alerting
+              </Typography>
+            </Box>
           </AppNameBox>
           <MetricsBox>
             <MetricsRow>
@@ -77,8 +95,15 @@ const ApplicationCard = ({ app }) => {
           </MetricsBox>
           <Divider sx={{ margin: '0 16px' }} />
         </Box>
-        <CardContent sx={{ paddingTop: 0 }}>
-          <Typography variant="body2" sx={{ fontSize: '0.7rem' }}>Related Hosts: {app.hosts}</Typography>
+        <CardContent sx={{ paddingTop: 0, paddingBottom: '8px' }}>
+          <Typography variant="body2" sx={{ fontSize: '0.7rem' }}>
+            Related Hosts ({app.hosts}):
+          </Typography>
+          <HostVisualization>
+            {hosts.map((host, index) => (
+              <CircleIcon key={index} sx={{ color: statusColors[host.status], fontSize: '0.8rem' }} />
+            ))}
+          </HostVisualization>
         </CardContent>
       </Card>
     </Paper>
